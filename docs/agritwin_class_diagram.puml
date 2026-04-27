@@ -1,0 +1,155 @@
+@startuml AgriTwin_ClassDiagram
+
+title AgriTwin-ZM v1.0 - Class Diagram
+
+!define ABSTRACT_COLOR #FFD700
+!define MODEL_COLOR #90EE90
+!define ENGINE_COLOR #87CEEB
+!define REPORT_COLOR #DDA0DD
+
+' ===== MODEL CLASSES =====
+
+package Models {
+    abstract class Commodity {
+        #production: float
+        #storage_capacity: float
+        #market_price: float
+        --
+        +calculate_monthly_loss(): float
+        +calculate_spoilage(shelf_life: int): dict
+        +get_crates_produced(): int
+    }
+
+    class Maize extends Commodity {
+        -moisture_content: float
+        -loss_percentage_per_month: float
+        --
+        +__init__(production: float, storage_capacity: float, moisture: float, price: float, loss_pct: float)
+        +calculate_monthly_loss(): float
+        +get_moisture_content(): float
+        +set_moisture_content(moisture: float): void
+    }
+
+    class Tomato extends Commodity {
+        -shelf_life_days: int
+        -storage_type: str
+        -spoilage_rate: float
+        -crates_from_production: int
+        --
+        +__init__(production: float, shelf_life: int, storage_type: str, spoilage_rate: float, price_per_crate: float)
+        +calculate_spoilage(shelf_life: int): dict
+        +get_storage_type(): str
+        +get_crates_produced(): int
+        +get_shelf_life(): int
+    }
+}
+
+' ===== ENGINE CLASSES =====
+
+package Engines {
+    class SupplyDemandEngine {
+        -commodity: Commodity
+        -production: float
+        -market_demand: float
+        --
+        +__init__(commodity: Commodity, production: float, demand: float)
+        +run_monthly_simulation(month_name: str, loss_amount: float): dict
+        +calculate_surplus(): float
+        +calculate_shortage(): float
+        +calculate_waste_percentage(): float
+        +calculate_revenue_zmw(price: float, quantity: float): float
+        +calculate_food_security_percentage(): float
+        +calculate_price_adjustment(surplus: float): dict
+    }
+
+    class StorageLossSimulator {
+        -loss_data: dict
+        -loss_summary: dict
+        --
+        +__init__()
+        +simulate_maize_storage(production: float, loss_pct: float, months: int): dict
+        +simulate_tomato_storage(production: float, storage_type: str, shelf_life: int): dict
+        +calculate_cumulative_loss(initial: float, loss_per_period: float, periods: int): float
+        +generate_loss_summary(commodity: str): str
+    }
+
+    class PolicyEngine {
+        -alerts: list[str]
+        -recommendations: list[str]
+        --
+        +__init__()
+        +check_fra_reserve(stock_level: float): void
+        +check_export_restriction(surplus: float, large_production: bool): void
+        +check_max_storage_time(commodity: str, days: int, *args): void
+        +clear_alerts(): void
+        +generate_policy_report(): list[str]
+        +get_alerts(): list[str]
+        +get_recommendations(): list[str]
+    }
+}
+
+' ===== REPORTING CLASSES =====
+
+package Reports {
+    class ReportingDashboard {
+        -results: list[dict]
+        -summary_stats: dict
+        --
+        +__init__()
+        +add_monthly_result(result: dict): void
+        +calculate_average_food_security(): float
+        +calculate_total_revenue(): float
+        +calculate_total_waste(): float
+        +food_security_label(percentage: float): str
+        +print_full_report(): str
+        +export_to_csv(file_path: str): void
+        +export_to_json(file_path: str): void
+        +export_to_txt(file_path: str): void
+        +load_from_json(file_path: str): void
+    }
+}
+
+' ===== RELATIONSHIPS =====
+
+SupplyDemandEngine --> Commodity : uses >
+SupplyDemandEngine --> ReportingDashboard : adds results to
+StorageLossSimulator --> Commodity : simulates >
+PolicyEngine --> SupplyDemandEngine : checks results from
+PolicyEngine --> Commodity : validates >
+ReportingDashboard --> SupplyDemandEngine : aggregates results from
+
+Maize --|> Commodity : inherits
+Tomato --|> Commodity : inherits
+
+note right of Commodity
+  Abstract base class for agricultural commodities.
+  Defines common interface for Maize and Tomato.
+  Attributes represent base production and storage parameters.
+end note
+
+note right of SupplyDemandEngine
+  Core simulation engine that models supply/demand balance.
+  Calculates surplus, shortage, waste %, food security status.
+  Returns comprehensive monthly simulation results as dict.
+end note
+
+note right of StorageLossSimulator
+  Models storage losses over time for different commodities.
+  Accumulates loss based on commodity type and storage duration.
+  Generates human-readable loss summary reports.
+end note
+
+note right of PolicyEngine
+  Monitors agricultural policy thresholds and constraints.
+  Triggers alerts when FRA reserve, export, or storage limits breached.
+  Provides actionable recommendations to decision-makers.
+end note
+
+note right of ReportingDashboard
+  Aggregates all simulation results and generates reports.
+  Supports multi-format export (CSV, JSON, TXT).
+  Tracks food security trends across multiple simulations.
+end note
+
+@enduml
+

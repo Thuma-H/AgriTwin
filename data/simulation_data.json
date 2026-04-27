@@ -1,0 +1,61 @@
+{
+  "simulations": [
+    {
+      "month": "January",
+      "commodity": "Maize",
+      "monthly_production": 50000,
+      "market_demand": 45000,
+      "surplus": 5000,
+      "shortage": 0,
+      "spoilage_tons": 1500,
+      "waste_percentage": 3.0,
+      "revenue_zmw": 202500000,
+      "price_adjustment": {
+        "original_price": 4500,
+        "adjusted_price": 4500,
+        "adjustment": "0%",
+        "reason": "Market is balanced"
+      },
+      "demand_met": 45000,
+      "food_security_percentage": 100.0
+    },
+    {
+      "month": "February",
+      "commodity": "Maize",
+      "monthly_production": 48500,
+      "market_demand": 46000,
+      "surplus": 2500,
+      "shortage": 0,
+      "spoilage_tons": 1455,
+      "waste_percentage": 3.0,
+      "revenue_zmw": 207000000,
+      "price_adjustment": {
+        "original_price": 4500,
+        "adjusted_price": 4500,
+        "adjustment": "0%",
+        "reason": "Market is balanced"
+      },
+      "demand_met": 46000,
+      "food_security_percentage": 100.0
+    },
+    {
+      "month": "March",
+      "commodity": "Tomato",
+      "monthly_production": 2000,
+      "market_demand": 1800,
+      "surplus": 200,
+      "shortage": 0,
+      "spoilage_tons": 200.5,
+      "waste_percentage": 10.02,
+      "revenue_zmw": 14400000,
+      "price_adjustment": {
+        "original_price": 120,
+        "adjusted_price": 120,
+        "adjustment": "0%",
+        "reason": "Market is balanced"
+      },
+      "demand_met": 1800,
+      "food_security_percentage": 100.0
+    }
+  ]
+}

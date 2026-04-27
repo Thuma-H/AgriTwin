@@ -1,0 +1,628 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriTwin-ZM Presenter Cheat Sheet</title>
+  <style>
+    :root {
+      --bg: #0c231a;
+      --panel: #173829;
+      --panel-2: #1c4230;
+      --text: #f4f7ee;
+      --muted: #d4dcc8;
+      --muted-2: #b9c4ae;
+      --gold: #d4af37;
+      --ok: #76d39b;
+      --warn: #f0b74a;
+      --danger: #e36e5f;
+      --grid: rgba(212, 219, 201, 0.07);
+      --border: #2f644a;
+      --shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(12, 35, 26, 0.97), rgba(12, 35, 26, 0.97)),
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        radial-gradient(circle at top, rgba(212, 175, 55, 0.12), transparent 30%);
+      background-color: var(--bg);
+      background-size: auto, 28px 28px, 28px 28px, auto;
+      background-attachment: fixed;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 24px auto 32px;
+      padding: 0 16px 24px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a4a36, #102d21 70%);
+      border: 1px solid #2f6e50;
+      border-radius: 22px;
+      padding: 22px 22px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.18), transparent 28%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 3.2vw, 40px);
+      color: var(--gold);
+      letter-spacing: 0.2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 980px;
+      color: var(--muted);
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 12.5px;
+      line-height: 1;
+      backdrop-filter: blur(3px);
+    }
+
+    .badge strong { font-weight: 700; }
+    .badge.ok { color: var(--ok); background: rgba(118, 211, 155, 0.12); }
+    .badge.warn { color: var(--warn); background: rgba(240, 183, 74, 0.12); }
+    .badge.info { color: #93d7ff; background: rgba(147, 215, 255, 0.12); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .stat {
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.12);
+    }
+
+    .stat .label { display: block; color: var(--muted-2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .stat .value { display: block; margin-top: 6px; font-size: 18px; font-weight: 700; color: var(--text); }
+
+    .grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)), var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .span-2 { grid-column: 1 / -1; }
+    .soft { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)), var(--panel-2); }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 19px;
+      color: var(--gold);
+    }
+
+    p { margin: 0 0 10px; }
+    ul, ol { margin: 0; padding-left: 18px; }
+    li { margin: 6px 0; }
+    .small { font-size: 13px; color: var(--muted); }
+
+    .note {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-left: 4px solid var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+      border-radius: 10px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid var(--border);
+      padding: 9px 10px;
+      vertical-align: top;
+    }
+
+    .table th {
+      text-align: left;
+      color: var(--gold);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      color: #f7e6a4;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .callout {
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(212, 175, 55, 0.08);
+    }
+
+    .do { border-left: 4px solid var(--ok); background: rgba(118, 211, 155, 0.08); }
+    .dont { border-left: 4px solid var(--danger); background: rgba(227, 110, 95, 0.08); }
+
+    .faq-item {
+      padding: 10px 0;
+      border-top: 1px dashed rgba(255,255,255,0.14);
+    }
+
+    .faq-item:first-child { border-top: 0; padding-top: 0; }
+    .q { font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+    .a { color: var(--text); }
+
+    .tree,
+    .codebox {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: #edf7e9;
+      background: rgba(8, 18, 12, 0.52);
+      border: 1px solid #335c48;
+      border-radius: 12px;
+      padding: 14px;
+      overflow-x: auto;
+      white-space: pre;
+      margin: 0;
+    }
+
+    .footer-note {
+      margin-top: 12px;
+      color: var(--muted-2);
+      font-size: 12.5px;
+    }
+
+    @media (max-width: 1000px) {
+      .grid,
+      .stats,
+      .grid-2 { grid-template-columns: 1fr; }
+      .span-2 { grid-column: auto; }
+    }
+
+    @media print {
+      @page { size: A4; margin: 0.55in; }
+      body {
+        background:
+          linear-gradient(rgba(12, 35, 26, 0.98), rgba(12, 35, 26, 0.98)),
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-attachment: scroll;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .wrap { max-width: none; margin: 0; padding: 0; }
+      .hero, .card, .callout, .table, .tree, .codebox {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+      }
+      .grid { gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Presenter version • simple language • print-ready</p>
+      <h1>AgriTwin-ZM Cheat Sheet</h1>
+      <p>This is a simple guide for presenting the project. It explains what the app does, what each file is for, and how to answer common questions without needing coding knowledge.</p>
+      <div class="badge-row">
+        <span class="badge ok"><strong>Desk app:</strong> Tkinter window with tabs</span>
+        <span class="badge info"><strong>Optional API:</strong> simple JSON service</span>
+        <span class="badge warn"><strong>Main crops:</strong> maize and tomato</span>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="label">Main idea</span><span class="value">Simulate farm supply and demand</span></div>
+        <div class="stat"><span class="label">Output</span><span class="value">Results, reports, policy checks</span></div>
+        <div class="stat"><span class="label">Use in class</span><span class="value">Talk through the logic clearly</span></div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>1) What this project does</h2>
+        <p>AgriTwin-ZM is a Python project that helps show what may happen to farm products over time. It focuses on <strong>maize</strong> and <strong>tomato</strong> because they behave differently: maize stores longer, while tomatoes spoil faster.</p>
+        <ul>
+          <li>It compares <strong>production</strong> with <strong>demand</strong>.</li>
+          <li>It shows if there is a <strong>surplus</strong> or a <strong>shortage</strong>.</li>
+          <li>It estimates <strong>loss</strong>, <strong>waste</strong>, and <strong>revenue</strong>.</li>
+          <li>It also gives simple <strong>policy warnings</strong> for food security.</li>
+        </ul>
+        <div class="note"><strong>Easy way to say it:</strong> “The project is a calculator for farm supply, demand, storage loss, and food security.”</div>
+      </article>
+
+      <article class="card">
+        <h2>2) Files the presenter should know</h2>
+        <table class="table">
+          <thead><tr><th>File</th><th>Simple meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>main.py</code></td><td>Starts the app. Can open the GUI or the API.</td></tr>
+            <tr><td><code>gui.py</code></td><td>The desktop window with tabs and buttons.</td></tr>
+            <tr><td><code>models/maize.py</code></td><td>Rules for maize.</td></tr>
+            <tr><td><code>models/tomato.py</code></td><td>Rules for tomatoes.</td></tr>
+            <tr><td><code>engines/supply_demand.py</code></td><td>Compares supply and demand, then calculates results.</td></tr>
+            <tr><td><code>engines/storage_loss.py</code></td><td>Simulates storage loss over days or months.</td></tr>
+            <tr><td><code>engines/policy.py</code></td><td>Checks rules like reserve levels and export limits.</td></tr>
+            <tr><td><code>reports/dashboard.py</code></td><td>Stores results and exports reports.</td></tr>
+            <tr><td><code>tests/test_all.py</code></td><td>Checks that the code works correctly.</td></tr>
+            <tr><td><code>data/simulation_data.json</code></td><td>Sample saved results that load into the app.</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card span-2 soft">
+        <h2>3) What happens when the app runs</h2>
+        <ol>
+          <li>The user opens the desktop app from <code>main.py</code>.</li>
+          <li>The GUI appears with tabs like <strong>Run Simulation</strong>, <strong>Results</strong>, <strong>Dashboard</strong>, <strong>Policy</strong>, and <strong>Data &amp; Export</strong>.</li>
+          <li>The user enters values such as production, demand, price, and storage details.</li>
+          <li>The code creates either a <code>Maize</code> or <code>Tomato</code> object.</li>
+          <li>The simulation engine calculates the result.</li>
+          <li>The dashboard saves the result and can export it.</li>
+        </ol>
+        <div class="grid-2" style="margin-top: 12px;">
+          <div class="callout do"><strong>Good demo line:</strong><div class="small">“The app takes simple farm numbers and turns them into easy-to-read results.”</div></div>
+          <div class="callout dont"><strong>Avoid saying:</strong><div class="small">“This is AI that predicts everything.” It is mostly rule-based simulation.</div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>4) The simple logic behind maize</h2>
+        <p>Maize is treated like a storage crop. The model keeps track of production, storage capacity, moisture level, price per ton, and monthly loss.</p>
+        <ul>
+          <li><code>Maize.calculate_monthly_loss()</code> = production × monthly loss rate.</li>
+          <li>The code checks that values are not negative.</li>
+          <li>Moisture level must stay between 0 and 100.</li>
+          <li>Maize revenue is based on tons sold × price per ton.</li>
+        </ul>
+        <div class="note"><strong>Simple explanation:</strong> maize loses a small amount each month while in storage.</div>
+      </article>
+
+      <article class="card">
+        <h2>5) The simple logic behind tomatoes</h2>
+        <p>Tomatoes are treated as a fast-spoiling crop. The model stores shelf life, storage type, spoilage rate, and price per crate.</p>
+        <ul>
+          <li><code>Tomato.calculate_spoilage(days_stored)</code> reduces the remaining amount day by day.</li>
+          <li>Cold storage spoils slower than open storage.</li>
+          <li>The code uses a crate conversion of <strong>15 kg per crate</strong>.</li>
+          <li>Revenue is calculated from crates sold × price per crate.</li>
+        </ul>
+        <div class="note"><strong>Simple explanation:</strong> tomatoes lose value quickly, so storage conditions matter a lot.</div>
+      </article>
+
+      <article class="card">
+        <h2>6) How the supply and demand engine works</h2>
+        <p>The engine in <code>engines/supply_demand.py</code> is the main calculator. It compares what is produced with what is needed by the market.</p>
+        <ul>
+          <li><strong>Surplus:</strong> when production is higher than demand.</li>
+          <li><strong>Shortage:</strong> when demand is higher than production.</li>
+          <li><strong>Waste %:</strong> spoilage divided by production.</li>
+          <li><strong>Food security %:</strong> how much of demand is met.</li>
+          <li><strong>Price adjustment:</strong> price can go down or up if the market is unbalanced.</li>
+        </ul>
+        <div class="codebox"># simple explanation of the food security idea
+food_security = (demand_met / market_demand) * 100</div>
+      </article>
+
+      <article class="card">
+        <h2>7) Important numbers to remember</h2>
+        <ul>
+          <li><strong>Food security label:</strong> above 80% = <em>Secure</em>, 60% to 80% = <em>At Risk</em>, below 60% = <em>Crisis</em>.</li>
+          <li><strong>Maize price change rule:</strong> big surplus can reduce price by 15%; big shortage can raise price by 20%.</li>
+          <li><strong>Policy reserve check:</strong> the default FRA threshold is 500,000 tons.</li>
+          <li><strong>Storage rules:</strong> maize can be checked up to 180 days; tomato uses shelf life.</li>
+          <li><strong>Tomato storage options:</strong> cold or open.</li>
+        </ul>
+        <div class="note"><strong>Remember:</strong> these are not random guesses. They are fixed rules written in Python.</div>
+      </article>
+
+      <article class="card">
+        <h2>8) What the dashboard does</h2>
+        <p>The dashboard in <code>reports/dashboard.py</code> is like a simple results book. It stores every simulation result and can export the data in different formats.</p>
+        <ul>
+          <li>It shows summaries for each month.</li>
+          <li>It gives the food security label.</li>
+          <li>It exports to <code>TXT</code>, <code>CSV</code>, and <code>JSON</code>.</li>
+          <li>It can load saved data back from <code>simulation_data.json</code>.</li>
+        </ul>
+      </article>
+
+      <article class="card span-2">
+        <h2>9) What to say about the tabs in the GUI</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Tab</th>
+              <th>What it does</th>
+              <th>How to describe it simply</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Run Simulation</strong></td>
+              <td>Lets the user choose maize or tomato and enter values.</td>
+              <td>“This is where the user gives the app the numbers.”</td>
+            </tr>
+            <tr>
+              <td><strong>Results</strong></td>
+              <td>Shows the output of the latest simulation.</td>
+              <td>“This is the answer page.”</td>
+            </tr>
+            <tr>
+              <td><strong>Dashboard</strong></td>
+              <td>Stores and displays reports and summaries.</td>
+              <td>“This is where the project keeps records.”</td>
+            </tr>
+            <tr>
+              <td><strong>Policy</strong></td>
+              <td>Checks reserve and export rules.</td>
+              <td>“This shows whether the rules are safe or risky.”</td>
+            </tr>
+            <tr>
+              <td><strong>Data &amp; Export</strong></td>
+              <td>Handles saved data and file export.</td>
+              <td>“This lets the user save or reuse results.”</td>
+            </tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card">
+        <h2>10) Do’s and don’ts for the presenter</h2>
+        <div class="callout do">
+          <strong>Do:</strong>
+          <ul>
+            <li>Speak slowly and explain one tab at a time.</li>
+            <li>Use the words “production,” “demand,” “loss,” and “results.”</li>
+            <li>Show the sample data to prove the app already has example records.</li>
+            <li>Say that the project is written in Python.</li>
+            <li>Say the interface is made with Tkinter.</li>
+          </ul>
+        </div>
+        <div class="callout dont" style="margin-top: 10px;">
+          <strong>Don’t:</strong>
+          <ul>
+            <li>Do not call it machine learning.</li>
+            <li>Do not say it uses a big database or live government data if it does not.</li>
+            <li>Do not overcomplicate the explanation with technical terms.</li>
+            <li>Do not focus on code details unless asked.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>11) Quick answers to common questions</h2>
+        <div class="faq-item">
+          <div class="q">Q: What language is the project written in?</div>
+          <div class="a">A: Python.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">Q: What is Tkinter?</div>
+          <div class="a">A: A built-in Python tool for making windows, tabs, and buttons.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">Q: Why are maize and tomato both included?</div>
+          <div class="a">A: Because they behave differently. Maize stores longer, tomato spoils faster.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">Q: What does “surplus” mean?</div>
+          <div class="a">A: More product was made than the market needed.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">Q: What does “shortage” mean?</div>
+          <div class="a">A: The market needed more than was produced.</div>
+        </div>
+        <div class="faq-item">
+          <div class="q">Q: How are results shown?</div>
+          <div class="a">A: In the Results tab and through report exports.</div>
+        </div>
+      </article>
+
+      <article class="card span-2">
+        <h2>12) More FAQ answers the examiner may ask</h2>
+        <div class="grid-2">
+          <div>
+            <div class="faq-item">
+              <div class="q">Q: Is the app online?</div>
+              <div class="a">A: The main app is a desktop app. There is also a simple API mode in <code>main.py</code>.</div>
+            </div>
+            <div class="faq-item">
+              <div class="q">Q: What is the API for?</div>
+              <div class="a">A: It lets another app send JSON data to run maize or tomato simulations.</div>
+            </div>
+            <div class="faq-item">
+              <div class="q">Q: What are the API endpoints?</div>
+              <div class="a">A: <code>GET /api/health</code>, <code>POST /api/simulate/maize</code>, and <code>POST /api/simulate/tomato</code>.</div>
+            </div>
+            <div class="faq-item">
+              <div class="q">Q: What is the role of the policy engine?</div>
+              <div class="a">A: It checks simple food security rules such as reserve levels and storage limits.</div>
+            </div>
+          </div>
+          <div>
+            <div class="faq-item">
+              <div class="q">Q: Does the app save data?</div>
+              <div class="a">A: Yes. The dashboard can export results to TXT, CSV, and JSON.</div>
+            </div>
+            <div class="faq-item">
+              <div class="q">Q: What does the sample JSON file do?</div>
+              <div class="a">A: It contains example simulations already loaded into the project.</div>
+            </div>
+            <div class="faq-item">
+              <div class="q">Q: How do tests help?</div>
+              <div class="a">A: They confirm that the models, engines, and exports work as expected.</div>
+            </div>
+            <div class="faq-item">
+              <div class="q">Q: Can I say the project is modular?</div>
+              <div class="a">A: Yes. Each part is separated into files for models, engines, reports, and tests.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card span-2">
+        <h2>13) Glossary: basic terms explained simply</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Term</th>
+              <th>Simple meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Python</strong></td><td>The programming language used to build the project.</td></tr>
+            <tr><td><strong>Tkinter</strong></td><td>The Python tool used to create the desktop window, tabs, and buttons.</td></tr>
+            <tr><td><strong>Model</strong></td><td>A file that holds the rules for one crop.</td></tr>
+            <tr><td><strong>Engine</strong></td><td>A file that performs the calculations.</td></tr>
+            <tr><td><strong>Report</strong></td><td>A saved summary of the results.</td></tr>
+            <tr><td><strong>Simulation</strong></td><td>A fake run of the system using numbers entered by the user.</td></tr>
+            <tr><td><strong>Production</strong></td><td>How much crop is produced.</td></tr>
+            <tr><td><strong>Demand</strong></td><td>How much crop people or the market need.</td></tr>
+            <tr><td><strong>Surplus</strong></td><td>Extra crop left after demand is met.</td></tr>
+            <tr><td><strong>Shortage</strong></td><td>Missing crop when demand is higher than production.</td></tr>
+            <tr><td><strong>Spoilage</strong></td><td>Crop lost because it went bad in storage.</td></tr>
+            <tr><td><strong>Waste</strong></td><td>Loss shown as a percentage.</td></tr>
+            <tr><td><strong>Revenue</strong></td><td>The money earned from selling the crop.</td></tr>
+            <tr><td><strong>Food security</strong></td><td>A simple score showing how well demand is met.</td></tr>
+            <tr><td><strong>FRA</strong></td><td>Food Reserve Agency, mentioned in policy checks.</td></tr>
+            <tr><td><strong>API</strong></td><td>A way for another program to send data to this project.</td></tr>
+            <tr><td><strong>JSON</strong></td><td>A common file format used to store and send data.</td></tr>
+            <tr><td><strong>CSV</strong></td><td>A spreadsheet-like file format with rows and columns.</td></tr>
+            <tr><td><strong>TXT</strong></td><td>A plain text file format.</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="card span-2">
+        <h2>14) File tree</h2>
+        <p class="small">Use this if the examiner asks what is inside the project folder.</p>
+        <pre class="tree">PythonProject1/
+├── gui.py
+├── main.py
+├── README.md
+├── data/
+│   └── simulation_data.json
+├── docs/
+│   ├── agritwin_cheat_sheet.html
+│   └── agritwin_class_diagram.puml
+├── engines/
+│   ├── __init__.py
+│   ├── policy.py
+│   ├── storage_loss.py
+│   └── supply_demand.py
+├── models/
+│   ├── __init__.py
+│   ├── maize.py
+│   └── tomato.py
+├── reports/
+│   ├── __init__.py
+│   └── dashboard.py
+└── tests/
+    └── test_all.py</pre>
+      </article>
+
+      <article class="card span-2">
+        <h2>15) Print / PDF notes</h2>
+        <ul>
+          <li>This page is styled to keep background color, grid lines, and cards when printed or saved as PDF.</li>
+          <li>Cards avoid breaking across pages so the content stays readable.</li>
+          <li>The layout uses simple headings and tables so the presenter can find information quickly.</li>
+          <li>If the PDF viewer asks about background graphics, make sure they are turned on before saving.</li>
+        </ul>
+      </article>
+
+      <article class="card span-2">
+        <h2>16) What changed in this revision</h2>
+        <ul>
+          <li>Made the cheat sheet much simpler and more beginner-friendly.</li>
+          <li>Added a glossary at the bottom for basic coding terms.</li>
+          <li>Added more FAQs so the presenter has quick answers ready.</li>
+          <li>Reworked the wording so it matches the actual codebase files and behavior.</li>
+          <li>Improved print/PDF styling so the colors, grid background, and layout stay visible when saved as PDF.</li>
+          <li>Kept the content focused on the real project parts: GUI, models, engines, dashboard, tests, and sample data.</li>
+        </ul>
+      </article>
+    </section>
+
+    <p class="footer-note">Tip for the presenter: if a question sounds too technical, answer with the simple explanation first and only add code details if the examiner asks for them.</p>
+  </div>
+</body>
+</html>
